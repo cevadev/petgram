@@ -1,12 +1,16 @@
 import React from "react";
 
 //los componentes nombrados como en este caso Category se importante llamándolos entre llaves
-import { Category } from "../components/Category/index.js";
+import { ListOfCategories } from "../components/ListOfCategories/index.js";
+
+//import estilos globales
+import { GlobalStyle } from "../../GlobalStyles.js";
 
 function App() {
   return (
     <div>
-      <Category />
+      <GlobalStyle />
+      <ListOfCategories />
     </div>
   );
 }
