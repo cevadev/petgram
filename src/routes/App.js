@@ -6,7 +6,7 @@ import { ListOfPhotoCards } from "../components/ListOfPhotoCards/index.js";
 import Logo from "../components/Logo/index.js";
 
 //import estilos globales
-import { GlobalStyle } from "../../GlobalStyles.js";
+import { GlobalStyle } from "../styles/GlobalStyles.js";
 
 function App() {
   return (
