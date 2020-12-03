@@ -2,12 +2,14 @@ import React from "react";
 
 import { PhotoCard } from "../PhotoCard/index.js";
 
+import { List, Item } from "./styles.js";
+
 export const ListOfPhotoCards = () => {
   return (
-    <ul>
+    <List>
       {[1, 2, 3, 4].map((id) => (
         <PhotoCard key={id} />
       ))}
-    </ul>
+    </List>
   );
 };
