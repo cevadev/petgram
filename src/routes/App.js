@@ -1,9 +1,12 @@
 import React from "react";
 
+//los componentes nombrados como en este caso Category se importante llamándolos entre llaves
+import { Category } from "../components/Category/index.js";
+
 function App() {
   return (
     <div>
-      <h1>Hello world</h1>
+      <Category />
     </div>
   );
 }
