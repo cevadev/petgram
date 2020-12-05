@@ -9,26 +9,42 @@ import { List, Item } from "./styles.js";
 
 const API = "https://petgram-server-api-barcvilla.vercel.app/categories";
 
-export const ListOfCategories = () => {
+/**
+ * Funcion responsable en hacer el fetching de datos
+ */
+function useCategoriesData() {
   //useState inicia como un array vacio que luego contendra las categorias por medio de la llamada a la API
   const [categories, setCategories] = useState([]);
 
-  //estado para saber si ListOfCategories esta fijo
-  const [showFixed, setShowFixed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //useEffect acepta una funcion la cual será la que se ejecute cuando se renderice el componente
   //el segundo parametro un array vacion [] significa que la funcion se ejecutara solo cuando se monte el componente, por lo tanto
   //el useEffect se ejecutara en el primer renderizado y nada mas. Este efecto es similar a colocar la logica en el metodo
   //componentDidMount()
   useEffect(function () {
+    //actualizamos el state del loading antes de hacer el fetch
+    setLoading(true);
     fetch(API)
       //convertimos la respuesta de la api a json
       .then((res) => res.json())
       .then((response) => {
         //pasamos nuestra respuesta al metodo setCategories para que actualice el state categories.
         setCategories(response);
+        //cuando tenemos los datos sse ha dejado de hacer loading por lo tanto false
+        setLoading(false);
       });
   }, []);
+
+  //este custom hook retorna las categorias y el state del loading
+  return { categories, loading };
+}
+
+export const ListOfCategories = () => {
+  const { categories, loading } = useCategoriesData();
+
+  //estado para saber si ListOfCategories esta fijo
+  const [showFixed, setShowFixed] = useState(false);
 
   /**
    * useEffect que nos permite mostrar el ListOfCategories cuando es necesaerio, es decir cuando se hizo scroll
@@ -61,20 +77,31 @@ export const ListOfCategories = () => {
    */
   const renderList = (fixed) => {
     return (
-      <List className={fixed ? "fixed" : ""}>
-        {categories.map((category) => (
-          <Item key={category.id}>
-            {/**pasamos los props que necesita el componente Category. Podriamos usar el operador spread {...category} */}
-            <Category
-              cover={category.cover}
-              path={category.path}
-              emoji={category.emoji}
-            />
+      <List fixed={fixed}>
+        {loading ? (
+          <Item key="loading...">
+            <Category />
           </Item>
-        ))}
+        ) : (
+          categories.map((category) => (
+            <Item key={category.id}>
+              {/**pasamos los props que necesita el componente Category. Podriamos usar el operador spread {...category} */}
+              <Category
+                cover={category.cover}
+                path={category.path}
+                emoji={category.emoji}
+              />
+            </Item>
+          ))
+        )}
       </List>
     );
   };
+
+  //si estamos cargando, enseñamos un mensaje de loading
+  /* if (loading) {
+    return "loading...";
+  } */
 
   return (
     <Fragment>
