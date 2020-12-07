@@ -22,23 +22,31 @@ export const PhotoCard = ({ id, likes = 0, srcImage = DEFAULT_IMAGE }) => {
    */
   useEffect(
     function () {
-      //en este momento el array contiene 4 articles, imprimira 4 elemento article, de esta forma podremo detectar si
-      //cada elemento está en el viewport del usuario
-      //console.info(domElement.current);
-      const observer = new IntersectionObserver(function (entries) {
-        //la propiedad isIntersecting del objeto IntersectionObserverEntry es la que nos dice si el elemento está en el viewport
-        const { isIntersecting } = entries[0];
-        if (isIntersecting) {
-          console.info("si");
-          setShow(true);
+      //retornamos una promesa ya sea window.IntersectionObserver o realizará el import dinamico de un IntersectionObserver
+      Promise.resolve(
+        //verificamos si el navegador soporta el IntersectionObserver si no lo soporta lo cargamos dinámicamente
+        typeof window.IntersectionObserver !== "undefined"
+          ? window.IntersectionObserver
+          : import("intersection-observer")
+      ).then(() => {
+        //en este momento el array contiene 4 articles, imprimira 4 elemento article, de esta forma podremo detectar si
+        //cada elemento está en el viewport del usuario
+        //console.info(domElement.current);
+        const observer = new IntersectionObserver(function (entries) {
+          //la propiedad isIntersecting del objeto IntersectionObserverEntry es la que nos dice si el elemento está en el viewport
+          const { isIntersecting } = entries[0];
+          if (isIntersecting) {
+            console.info("si");
+            setShow(true);
 
-          //cuando show es true, evitamos que el observer se vuelva a actualizar
-          observer.disconnect();
-        }
+            //cuando show es true, evitamos que el observer se vuelva a actualizar
+            observer.disconnect();
+          }
+        });
+
+        //invocamos al observer
+        observer.observe(domElement.current);
       });
-
-      //invocamos al observer
-      observer.observe(domElement.current);
     },
     [domElement]
   );
