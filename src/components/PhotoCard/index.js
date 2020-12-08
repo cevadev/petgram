@@ -37,8 +37,8 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
       {/**si show is true entonces mostramos el article con la foto */}
       {show && (
         <Fragment>
-          {/**nos al dar clik en el anchor nos lleva a detalle de la foto */}
-          <a href={`/detail/${id}`}>
+          {/**al dar click vamos a una querystring  */}
+          <a href={`/?detail=${id}`}>
             <ImgWrapper>
               <Img src={src} />
             </ImgWrapper>
