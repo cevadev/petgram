@@ -13,9 +13,9 @@ import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 const DEFAULT_IMAGE =
   "https://res.cloudinary.com/midudev/image/upload/w_300/q_80/v1560262103/dogs.png";
 /**
- * Props del componente PhotoCard: id, likes, srcImage
+ * Props del componente PhotoCard: id, likes, src
  */
-export const PhotoCard = ({ id, likes = 0, srcImage = DEFAULT_IMAGE }) => {
+export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
   const [show, domElement] = useNearScreen();
   //creamos nuestra key llamada (like + id del elemento en el array) para ser guardada en el local storage
   const key = `like-${id}`;
@@ -40,7 +40,7 @@ export const PhotoCard = ({ id, likes = 0, srcImage = DEFAULT_IMAGE }) => {
           {/**nos al dar clik en el anchor nos lleva a detalle de la foto */}
           <a href={`/detail/${id}`}>
             <ImgWrapper>
-              <Img src={srcImage} />
+              <Img src={src} />
             </ImgWrapper>
           </a>
           {/**establecemos el valor de liked con el valor contrario que posea */}
