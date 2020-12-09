@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-//aplicamos estilos al elemento anchor (a)
-export const Anchor = styled.a`
+//importamos el Link para evitar que se recargue toda la página
+import { Link as LinkRouter } from "@reach/router";
+
+//aplicamos estilos al elemento Link
+export const Link = styled(LinkRouter)`
   display: flex;
   flex-direction: column;
   text-align: center;

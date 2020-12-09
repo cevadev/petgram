@@ -4,11 +4,11 @@ import React, { Fragment } from "react";
 import { ListOfCategories } from "../components/ListOfCategories/index.js";
 import { ListOfPhotoCards } from "../containers/ListOfPhotoCards.js";
 
-export const Home = ({ id }) => {
+export const Home = ({ categoryId }) => {
   return (
     <Fragment>
       <ListOfCategories />
-      <ListOfPhotoCards categoryId={id} />
+      <ListOfPhotoCards categoryId={categoryId} />
     </Fragment>
   );
 };
