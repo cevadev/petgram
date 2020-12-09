@@ -11,8 +11,10 @@ export const Link = styled(LinkRouter)`
   justify-content: center;
   text-decoration: none;
   width: 100%;
+  /**estilos que nos indican en que zona de la navbar nos encontramos */
   &[aria-current] {
     color: #000;
+    /**colocamos un punto (.) debajo del icono de NavBar */
     &:after {
       ${fadeIn({ time: "0.5s" })};
       content: "·";
