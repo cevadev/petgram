@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "@reach/router";
 
 import useLocalStorage from "../../hooks/useLocalStorage.js";
 import useNearScreen from "../../hooks/useNearScreen.js";
@@ -30,11 +31,11 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
       {show && (
         <Fragment>
           {/**al dar click vamos a una querystring  */}
-          <a href={`/?detail=${id}`}>
+          <Link to={`/detail/${id}`}>
             <ImgWrapper>
               <Img src={src} />
             </ImgWrapper>
-          </a>
+          </Link>
           <ToggleLikeMutation>
             {(toggleLike) => {
               const handleFavClick = () => {
