@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
+import { Router } from "@reach/router";
 
-//los componentes nombrados como en este caso Category se importante llamándolos entre llaves
-import { ListOfCategories } from "../components/ListOfCategories/index.js";
-import { ListOfPhotoCards } from "../containers/ListOfPhotoCards.js";
+import { Home } from "../pages/Home.js";
 import { PhotoCardWithQuery } from "../containers/PhotoCardWithQuery.js";
 import Logo from "../components/Logo/index.js";
 
@@ -23,10 +22,10 @@ function App() {
       {detailId ? (
         <PhotoCardWithQuery id={detailId} />
       ) : (
-        <Fragment>
-          <ListOfCategories />
-          <ListOfPhotoCards categoryId={1} />
-        </Fragment>
+        <Router>
+          <Home path="/" />
+          <Home path="/pet/:id" />
+        </Router>
       )}
     </div>
   );

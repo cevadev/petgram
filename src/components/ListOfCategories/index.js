@@ -90,6 +90,7 @@ export const ListOfCategories = () => {
                 cover={category.cover}
                 path={category.path}
                 emoji={category.emoji}
+                path={`/pet/${category.id}`}
               />
             </Item>
           ))
