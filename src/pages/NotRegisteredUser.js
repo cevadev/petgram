@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import Context from "../Context.js";
 import { UserForm } from "../components/UserForm/index.js";
@@ -11,10 +11,11 @@ export const NotRegisteredUser = () => {
         el user esta autenticado y el metodo    activateAuth para actualizar el state */}
       {({ activateAuth }) => {
         return (
-          /**renderizamos un formulario que le permite al usuario autentificarse */
-          <UserForm title="Iniciar Sesión" onSubmit={activateAuth}>
-            <button>Iniciar sesión</button>
-          </UserForm>
+          <Fragment>
+            {/**renderizamos un formulario que le permite al usuario autentificarse */}
+            <UserForm title="Iniciar Sesión" onSubmit={activateAuth} />
+            <UserForm title="Registrarse" onSubmit={activateAuth} />
+          </Fragment>
         );
       }}
     </Context.Consumer>
