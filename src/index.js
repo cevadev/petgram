@@ -7,6 +7,8 @@ import ApolloClient from "apollo-boost";
 //Apollo Provider es un componente con el que envolvemos nuestra app de manera que podremo usar apollo en cualquier parte de la app
 import { ApolloProvider } from "react-apollo";
 
+import Context from "./Context.js";
+
 //hacemos referencia a nuestra app
 import App from "./routes/App.js";
 
@@ -20,10 +22,14 @@ const client = new ApolloClient({
  * Especificamos el punto de entrada de nuestra app
  * ReactDOM.render()-> recibe el componente App, recibe el document.getElementById('app')
  * ApolloClient envuelve nuestra app para permitir trabajar con GraphQL
+ * Accedemos value isAuth para saber si el user está autenticado
  */
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <Context.Provider>
+    {/**la zona del children */}
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </Context.Provider>,
   document.getElementById("app")
 );
