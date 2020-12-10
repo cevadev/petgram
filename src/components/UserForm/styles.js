@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const Error = styled.small`
+  font-size: 10px;
+  color: red;
+`;
+
 export const Title = styled.h2`
   font-size: 16px;
   font-weight: 500;
