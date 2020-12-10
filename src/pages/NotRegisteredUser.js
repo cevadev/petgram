@@ -1,6 +1,7 @@
 import React from "react";
 
 import Context from "../Context.js";
+import { UserForm } from "../components/UserForm/index.js";
 
 export const NotRegisteredUser = () => {
   return (
@@ -11,9 +12,9 @@ export const NotRegisteredUser = () => {
       {({ activateAuth }) => {
         return (
           /**renderizamos un formulario que le permite al usuario autentificarse */
-          <form onSubmit={activateAuth}>
+          <UserForm title="Iniciar Sesión" onSubmit={activateAuth}>
             <button>Iniciar sesión</button>
-          </form>
+          </UserForm>
         );
       }}
     </Context.Consumer>
