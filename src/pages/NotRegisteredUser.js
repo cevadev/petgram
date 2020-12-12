@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import Context from "../Context.js";
 import { UserForm } from "../components/UserForm/index.js";
 import { RegisterMutation } from "../containers/RegisterMutation.js";
+import { LoginMutation } from "../containers/LoginMutation.js";
 
 export const NotRegisteredUser = () => {
   return (
@@ -43,7 +44,31 @@ export const NotRegisteredUser = () => {
                 );
               }}
             </RegisterMutation>
-            <UserForm title="Iniciar Sesión" onSubmit={activateAuth} />
+
+            <LoginMutation>
+              {(login, { loading, error }) => {
+                const handleSubmit = ({ email, password }) => {
+                  const input = { email, password };
+                  login({ variables: { input } }).then(({ data }) =>
+                    activateAuth(data.login)
+                  );
+                };
+                const errorMsg =
+                  error &&
+                  "No se puede iniciar sesión. El usuario no existe o el password no es correcto.";
+                {
+                  /**retornamos el componente user form */
+                }
+                return (
+                  <UserForm
+                    disabled={loading}
+                    error={errorMsg}
+                    title="Iniciar sesión"
+                    onSubmit={handleSubmit}
+                  />
+                );
+              }}
+            </LoginMutation>
           </Fragment>
         );
       }}
