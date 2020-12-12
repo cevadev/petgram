@@ -27,13 +27,20 @@ export const UserForm = ({ disabled, error, title, onSubmit }) => {
           placeholder="Email"
           value={email.value}
           onChange={email.onChange}
+          disabled={disabled}
         />
         {/**2da forma utilizando el rest operator ya que las props de password son value y onChange que coinciden con los nombres
           de las propiedades por lo que podemos pasar todas las propiedades del objeto con el rest operator (...)
           por lo que value y onChange se parasa como props a los inputs*/}
-        <Input placeholder="Password" type="password" {...password} />
-        <Button>{title}</Button>
+        <Input
+          placeholder="Password"
+          type="password"
+          {...password}
+          disabled={disabled}
+        />
+        <Button disabled={disabled}>{title}</Button>
       </Form>
+      {/**si tenemos un error, renderizamos el error */}
       {error && <Error>{error}</Error>}
     </Fragment>
   );

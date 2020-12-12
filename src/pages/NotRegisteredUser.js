@@ -15,7 +15,7 @@ export const NotRegisteredUser = () => {
           <Fragment>
             <RegisterMutation>
               {/**RegisterMutation nos devuelve el parametro para hacer la mutacion que es el param register 
-                y register es lo que queremos que se ejecute*/}
+                y register es lo que queremos que se ejecute, tambien nos llega la data, el loading y error*/}
               {(register, { data = {}, loading, error }) => {
                 /**personalizamos que es lo que se va a ejecutar cuando el usuario haga submit */
                 const onSubmit = ({ email, password }) => {
@@ -27,11 +27,12 @@ export const NotRegisteredUser = () => {
                   register({ variables }).then(activateAuth);
                 };
 
+                //si error es true, mostramos el mensaje de error
                 const errorMsg =
                   error &&
                   "No se puede registrar el usuario. Ya existe o los datos no son correctos.";
 
-                /**rederizamos el formulario de registro */
+                /**rederizamos el formulario de registro. disabled se activa cuando estamos cargando */
                 return (
                   <UserForm
                     error={errorMsg}
