@@ -16,6 +16,30 @@ import App from "./routes/App.js";
 const client = new ApolloClient({
   //pasamos la uri donde tenemos el server de graphql
   uri: "https://petgram-server-api-barcvilla-l8ya7qy99.vercel.app/graphql",
+  //operacion request que es una funcion, que tiene como parametro la operacion que esta realizando
+  //la propiedad request se va a ejecutar justo antes de hacer cualquier peticion al server, por lo que será aqui
+  //donde recuperamos el JWToken
+  request: (operation) => {
+    const token = window.sessionStorage.getItem("token");
+    //si el token existe o es true, pasamos el token con el bearer
+    const authorization = token ? `Bearer ${token}` : "";
+    //al contexto le pasamos un objeto, que contiene los headers y va a tener la autorizacion
+    operation.setContext({
+      headers: {
+        authorization,
+      },
+    });
+  },
+
+  //manejamos si el token ha expirado. si se produce un error, quitamos el token del sesion storage
+  onError: (error) => {
+    const { networkError } = error;
+    if (networkError && networkError.result.code === "invalid_token") {
+      window.sessionStorage.removeItem("token");
+      //hacemos que el usuario retorne a la pantalla de inicio
+      window.location.href = "/";
+    }
+  },
 });
 
 /**

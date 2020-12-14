@@ -19,7 +19,7 @@ export const FavButton = ({ liked, likes, onClick }) => {
   const Icon = liked ? MdFavorite : MdFavoriteBorder;
 
   return (
-    <Button type="button" onClick={onClick}>
+    <Button onClick={onClick}>
       <Icon size="25" />
       {likes} likes
     </Button>

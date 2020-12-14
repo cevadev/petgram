@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 import { Link } from "@reach/router";
 
-import useLocalStorage from "../../hooks/useLocalStorage.js";
+//import useLocalStorage from "../../hooks/useLocalStorage.js";
+
 import useNearScreen from "../../hooks/useNearScreen.js";
 import { FavButton } from "../FavButton/index.js";
 import { ToggleLikeMutation } from "../../containers/ToggleLikeMutation.js";
@@ -13,15 +14,16 @@ const DEFAULT_IMAGE =
 /**
  * Props del componente PhotoCard: id, likes, src
  */
-export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
+export const PhotoCard = ({ id, liked, likes = 0, src = DEFAULT_IMAGE }) => {
   const [show, domElement] = useNearScreen();
+
   //creamos nuestra key llamada (like + id del elemento en el array) para ser guardada en el local storage
-  const key = `like-${id}`;
+  //const key = `like-${id}`;
 
   //utilizamos nuestro hook useLocalStorage
   //like -> storedValue
   //setLike -> setLocalStorage
-  const [liked, setLiked] = useLocalStorage(key, false);
+  //const [liked, setLiked] = useLocalStorage(key, false); //ahora utilizamos el session storage
 
   //la props ref es una prop especial de react que nos permite capturar el elemento del dom por lo tanto en la variable ref
   //guardamos dicha referencia del elemento del dom
@@ -39,8 +41,8 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
           <ToggleLikeMutation>
             {(toggleLike) => {
               const handleFavClick = () => {
-                setLiked(!liked);
-                !liked && toggleLike({ variables: { input: { id } } });
+                //setLiked(!liked);
+                toggleLike({ variables: { input: { id } } });
               };
 
               return (
