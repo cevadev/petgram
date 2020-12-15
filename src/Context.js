@@ -28,6 +28,13 @@ const Provider = ({ children }) => {
       //guardamos el javascript webtoken en el session storage con una key token
       window.sessionStorage.setItem("token", token);
     },
+
+    //metodo para cerrar session
+    removeAuth: () => {
+      setIsAuth(false);
+      //eliminamos el token de login del user
+      window.sessionStorage.removeItem("token");
+    },
   };
 
   //retornamos el context.provider que estamos utilizando
