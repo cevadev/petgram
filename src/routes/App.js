@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Router } from "@reach/router";
+import React, { Fragment, useContext } from "react";
+import { Redirect, Router } from "@reach/router";
 
 import { Home } from "../pages/Home.js";
 import { Detail } from "../pages/Detail.js";
@@ -8,7 +8,8 @@ import { User } from "../pages/User.js";
 import { NotRegisteredUser } from "../pages/NotRegisteredUser.js";
 import Logo from "../components/Logo/index.js";
 import { NavBar } from "../components/NavBar/index.js";
-import Context from "../Context.js";
+import { Context } from "../Context.js";
+import { NotFound } from "../pages/NotFound.js";
 
 //import estilos globales
 import { GlobalStyle } from "../styles/GlobalStyles.js";
@@ -22,32 +23,30 @@ import { GlobalStyle } from "../styles/GlobalStyles.js";
 }; */
 
 function App() {
+  //recuperamos isAuth del Context para saber si el usuario esta autenticado
+  const { isAuth } = useContext(Context);
   return (
     <div>
       <GlobalStyle />
       <Logo />
       <Router>
+        {/**si se ingresa una ruta no controlada, se mostrará la pagina notfound */}
+        <NotFound default />
         <Home path="/" />
         <Home path="/pet/:categoryId" />
         <Detail path="/detail/:detailId" />
-      </Router>
-      <Context.Consumer>
-        {/**a la render prop le llegan todos los values puestos en el Context.provider en este caso isAuth*/}
-        {({ isAuth }) =>
-          /**si esta autenticado, renderizamos un router con acceso a favs y user de lo contrario NotRegisteredUser */
-          isAuth ? (
-            <Router>
-              <Favs path="/favs" />
-              <User path="/user" />
-            </Router>
-          ) : (
-            <Router>
-              <NotRegisteredUser path="/favs" />
-              <NotRegisteredUser path="/user" />
-            </Router>
-          )
+        {!isAuth && <NotRegisteredUser path="/login" />}
+        {
+          /**si el usuario no esta autenticado, redireccionamos de fav a login */
+          !isAuth && <Redirect from="/favs" to="/login" />
         }
-      </Context.Consumer>
+        {!isAuth && <Redirect from="/user" to="/login" />}
+        {/**si el usuario está autenticado lo redirigimos del login al home */}
+        {isAuth && <Redirect from="/login" to="/" />}
+        <Favs path="/favs" />
+        <User path="/user" />
+      </Router>
+
       <NavBar />
     </div>
   );
