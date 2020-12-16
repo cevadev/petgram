@@ -40,7 +40,7 @@ function useCategoriesData() {
   return { categories, loading };
 }
 
-export const ListOfCategories = () => {
+const ListOfCategoriesComponent = () => {
   const { categories, loading } = useCategoriesData();
 
   //estado para saber si ListOfCategories esta fijo
@@ -112,3 +112,8 @@ export const ListOfCategories = () => {
     </Fragment>
   );
 };
+
+/**
+ * utilizamos React.memo para evitar el re-rederizado de las categorias
+ */
+export const ListOfCategories = React.memo(ListOfCategoriesComponent);

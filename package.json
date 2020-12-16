@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode development",
+    "start:dev":"npx serve build dist -s",
+
     "vercel-build": "npm run start",
     "start": "webpack serve --history-api-fallback",
     "test": "echo \"Error: no test specified\" && exit 1"
