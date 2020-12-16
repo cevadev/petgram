@@ -1,9 +1,9 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, Suspense } from "react";
 import { Redirect, Router } from "@reach/router";
 
 import { Home } from "../pages/Home.js";
 import { Detail } from "../pages/Detail.js";
-import { Favs } from "../pages/Favs.js";
+//import { Favs } from "../pages/Favs.js";
 import { User } from "../pages/User.js";
 import { NotRegisteredUser } from "../pages/NotRegisteredUser.js";
 import Logo from "../components/Logo/index.js";
@@ -22,11 +22,25 @@ import { GlobalStyle } from "../styles/GlobalStyles.js";
   return children({ isAuth: false });
 }; */
 
+/**vamos a importar favoritos solo cuando los necesitemos utilizando React.lazy()
+ * le pasamos a React.lazy() una funcion anonima que retorna un import dinámico
+ */
+const Favs = React.lazy(() => import("../pages/Favs"));
+
 function App() {
   //recuperamos isAuth del Context para saber si el usuario esta autenticado
   const { isAuth } = useContext(Context);
   return (
-    <div>
+    /**en lugar de <div></div> utilizamos <Suspense></Suspense> que nos permitirá renderizar la app mientras
+     * el componente Favs esta en suspensión.
+     *
+     * podemos reemplazar el suspense por el div y comentar la linea 28 y quitar los comentarios de la linea 6
+     * Ir a la pagina Favs.js comentar la parte de export default y quitar comentarios a la parte de export const
+     * para que todo funcione sin React.lazy y Suspense
+     *
+     * Suspense utiliza un props llamada fallback que es lo que va a renderizar mientras está cargando el componente
+     */
+    <Suspense fallback={<div />}>
       <GlobalStyle />
       <Logo />
       <Router>
@@ -48,7 +62,7 @@ function App() {
       </Router>
 
       <NavBar />
-    </div>
+    </Suspense>
   );
 }
 
