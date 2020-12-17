@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "@reach/router";
+import PropTypes from "prop-types";
 
 //import useLocalStorage from "../../hooks/useLocalStorage.js";
 
@@ -58,4 +59,22 @@ export const PhotoCard = ({ id, liked, likes = 0, src = DEFAULT_IMAGE }) => {
       )}
     </Article>
   );
+};
+
+PhotoCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  liked: PropTypes.bool,
+  src: PropTypes.string.isRequired,
+  //likes puede ser un numero positivo de 0 en adelante. creamos para esto una custom prop validation
+  likes: function (props, propName, componenteName) {
+    //accedemos al valor de la prop
+    const propValue = props[propName];
+    if (propValue === "undefined") {
+      return new Error(`${propName} Value must be defined`);
+    }
+
+    if (propValue < 0) {
+      return new Error(`${propName} value must be greater than zero`);
+    }
+  },
 };

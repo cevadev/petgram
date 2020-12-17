@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 //importamos iconos de material design de react-icons
 //MdFavoriteBorder -> icono favorito bordeado
@@ -24,4 +25,12 @@ export const FavButton = ({ liked, likes, onClick }) => {
       {likes} likes
     </Button>
   );
+};
+
+//Indicamos cuales son los tipos de datos de las props utilizadas por FavButton. con isRequired indicamos que son props requeridas
+//para el correcto funcionamiento del componente
+FavButton.propTypes = {
+  liked: PropTypes.bool,
+  likes: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

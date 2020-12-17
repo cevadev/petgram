@@ -52,11 +52,11 @@ function App() {
         {!isAuth && <NotRegisteredUser path="/login" />}
         {
           /**si el usuario no esta autenticado, redireccionamos de fav a login */
-          !isAuth && <Redirect from="/favs" to="/login" />
+          !isAuth && <Redirect noThrow from="/favs" to="/login" />
         }
-        {!isAuth && <Redirect from="/user" to="/login" />}
+        {!isAuth && <Redirect noThrow from="/user" to="/login" />}
         {/**si el usuario está autenticado lo redirigimos del login al home */}
-        {isAuth && <Redirect from="/login" to="/" />}
+        {isAuth && <Redirect noThrow from="/login" to="/" />}
         <Favs path="/favs" />
         <User path="/user" />
       </Router>
