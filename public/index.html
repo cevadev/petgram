@@ -7,5 +7,27 @@
 </head>
 <body>
     <div id="app"></div>
+    <!--la etiqueta noscript se ejecutara en el caso que el navegador no este ejecutando js-->
+    <noscript>
+        <h3>Esta aplicación web require Javascript activado para funcionar correctamente</h3>
+    </noscript>
+    <script>
+        //Cargamos nuestro SW GENERADO
+        //Verificamos la compatibilidad
+        if('serviceWorker' in navigator){
+            //si es true, escuchamos el evento de load y ejecutamos una funcion
+            window.addEventListener('load', function(){
+                //registramos el service worker
+                navigator.serviceWorker.register('/service-worker.js')
+                    //register retorna una promesa, entonces verificamos si se puedo realizar el register
+                    .then(registration =>{
+                        console.info('SW registrado exitosamente');
+                    })
+                    .catch(registrationError =>{
+                        console.error('Se ha producido un error al momento de registrar el Service Worker', registrationError);
+                    })
+            })
+        }
+    </script>
 </body>
 </html>
